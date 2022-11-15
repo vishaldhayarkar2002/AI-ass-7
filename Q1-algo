@@ -1,0 +1,7 @@
+Q1) The steps that we’ll use to implement the NOR logic using a perceptron is similar to how a neural network is trained.
+
+1. First, we’ll initialize the weights and the bias of the perceptron.
+2. Then the input will be forward propagated through the network and output ‘y’ will be produced.
+3. This obtained result will then be compared with the actual result and the error obtained will be backpropagated through the network to adjust the weights and the bias of the model. This will minimize the error obtained.
+4. We’ll then repeat the above steps for all the inputs present.
+
