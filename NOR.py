@@ -1,32 +1,42 @@
-
 import numpy as np
+def activation_function(x):
+    if x >= 0:
+        return 1
+    else :
+        return 0
 
-def act_func(y):
-    if y > 0:
-        y = 1
-    elif y <= 0:
-        y = 0
-    return y
+def run_perceptron(gate,desired_output):
+    bias = 0.4 # the bias is always one
+    learning_constant = 0.2
+    weights = [0.3,-0.2]
 
-W = np.array([0.3, -0.2])
+    for _ in range(50) : 
+        estimated_output = []
+        for i in range(len(gate)) : 
+            x = gate[i] 
+            product = np.dot(x,weights) + bias 
+            # print("i = ",i)
+            # print("product = ",product)
+            estimated_output.append(activation_function(product))
+            error = desired_output[i]-estimated_output[i]
+            # print("error = ",error)
+            if(error != 0) : 
+                # print(x,weights)
+                for j in range(len(weights)) : 
+                    weights[j] = weights[j] + learning_constant*error*x[j]
+                break
+            if i == len(gate)-1 : 
+                print("estimated_output : " , estimated_output)
+                print("desired_output :   " , desired_output)
+                print("final weights :    ",weights)
+                return 
 
-b = 0.4
+nor_gate = [
+    [0, 0],
+    [0, 1],
+    [1, 0],
+    [1, 1]
+]
+nor_gate_output = [1, 0, 0, 0 ]
 
-def p_algo(x):
-    # y = w1x1 + w2x2 + b
-    # In NOR and NAND we will be adding bias value 
-    y = np.dot(W, x) + b
-    # y = 1 if Wx+b > 0 else y = 0 
-    y = act_func(y)
-    return y
-
-input1 = np.array([0, 0])
-input2 = np.array([0, 1])
-input3 = np.array([1, 0])
-input4 = np.array([1, 1])
-
-print('NOR Logic: \n')
-print(f'x1 = 0 and x2 = 0 => y = {p_algo(input1)}')
-print(f'x1 = 0 and x2 = 1 => y = {p_algo(input2)}')
-print(f'x1 = 1 and x2 = 0 => y = {p_algo(input3)}')
-print(f'x1 = 1 and x2 = 1 => y = {p_algo(input4)}')
+run_perceptron(nor_gate,nor_gate_output)
